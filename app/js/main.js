@@ -28,7 +28,7 @@ var config = function config($stateProvider, $urlRouterProvider) {
   // Add Athlete
   .state('root.addAthlete', {
     url: '/athletes/add',
-    controller: 'AddAthleteController as vm',
+    controller: 'ImagesAddController as vm',
     templateUrl: 'templates/app-images/images.add.tpl.html'
   });
 };
@@ -76,22 +76,82 @@ var _constantsParseConstant2 = _interopRequireDefault(_constantsParseConstant);
 
 _angular2['default'].module('app.core', ['ui.router']).config(_config2['default']).constant('PARSE', _constantsParseConstant2['default']);
 
-},{"./config":1,"./constants/parse.constant":2,"angular":12,"angular-ui-router":10}],4:[function(require,module,exports){
-"use strict";
+},{"./config":1,"./constants/parse.constant":2,"angular":14,"angular-ui-router":12}],4:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+var ImagesAddController = function ImagesAddController(ImagesService) {
+
+  var vm = this;
+
+  vm.addImage = addImage;
+
+  function addImage(imageObj) {
+    ImagesService.addImage(imageObj).then(function (res) {
+      console.log(res);
+    });
+  }
+};
+
+ImagesAddController.$inject = ['ImagesService'];
+
+exports['default'] = ImagesAddController;
+module.exports = exports['default'];
 
 },{}],5:[function(require,module,exports){
-"use strict";
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+var ImagesController = function ImagesController(ImagesService) {
+
+  var vm = this;
+
+  vm.images = [];
+  vm.clicked = clicked;
+
+  activate();
+
+  function activate() {
+    ImagesService.getAllImages().then(function (res) {
+      vm.images = res.data.results;
+    });
+  }
+
+  // function clicked (image) {
+  //   console.log('clicked', image.name);
+  // }
+};
+
+ImagesController.$inject = ['ImagesService'];
+
+exports['default'] = ImagesController;
+module.exports = exports['default'];
 
 },{}],6:[function(require,module,exports){
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var amitImage = function amitImage() {};
+// let amitImage = function($state, ImageService) {
 
-exports["default"] = amitImage;
-module.exports = exports["default"];
+// return {
+//   restrict: 'AE',
+//   replace: true,
+//   scope: {
+//   image: '='
+
+//   },
+//   template:
+//   <div class="pic" ng-click="vm.clicked(image)">
+//   <h5>{{ image.name }}</h5>
+
+// } 
+
+// };
+
+// export default amitImage;
 
 },{}],7:[function(require,module,exports){
 'use strict';
@@ -122,10 +182,76 @@ var _directivesImagesDirective2 = _interopRequireDefault(_directivesImagesDirect
 
 _angular2['default'].module('app.images', ['app.core']).controller('ImagesController', _controllersImagesController2['default']).controller('ImagesAddController', _controllersImagesAddController2['default']).service('ImagesService', _servicesImagesService2['default']).directive('amitImage', _directivesImagesDirective2['default']);
 
-},{"../app-core/index":3,"./controllers/images-add.controller":4,"./controllers/images.controller":5,"./directives/images.directive":6,"./services/images.service":8,"angular":12}],8:[function(require,module,exports){
-"use strict";
+},{"../app-core/index":3,"./controllers/images-add.controller":4,"./controllers/images.controller":5,"./directives/images.directive":6,"./services/images.service":8,"angular":14}],8:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+var ImageService = function ImageService($http, PARSE) {
+
+  var url = PARSE.URL + 'classes/image';
+
+  this.getAllImages = getAllImages;
+  this.addImage = addImage;
+
+  function Image(imageObj) {
+    this.athlete = imageObj.athlete;
+    this.url = imageObj.url;
+    this.caption = imageObj.caption;
+  }
+
+  function getAllImages() {
+    return $http.get(url, PARSE.CONFIG);
+  }
+
+  function addImage(imageUrl, image) {
+    image.image = imageUrl;
+    return $http.put(url + '/' + image.objectId, image, PARSE.CONFIG);
+  }
+};
+
+ImageService.$injet = ['$http', 'PARSE'];
+
+exports['default'] = ImageService;
+module.exports = exports['default'];
 
 },{}],9:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+var HomeController = function HomeController(PARSE) {
+
+  console.log(PARSE);
+
+  var vm = this;
+
+  vm.title = 'Home Page';
+};
+
+HomeController.$inject = ['PARSE'];
+
+exports['default'] = HomeController;
+module.exports = exports['default'];
+
+},{}],10:[function(require,module,exports){
+'use strict';
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _angular = require('angular');
+
+var _angular2 = _interopRequireDefault(_angular);
+
+var _controllersHomeController = require('./controllers/home.controller');
+
+var _controllersHomeController2 = _interopRequireDefault(_controllersHomeController);
+
+_angular2['default'].module('app.layout', []).controller('HomeController', _controllersHomeController2['default']);
+
+},{"./controllers/home.controller":9,"angular":14}],11:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -138,9 +264,11 @@ require('./app-core/index');
 
 require('./app-images/index');
 
-_angular2['default'].module('app', ['app.core', 'app.images']);
+require('./app-layout/index');
 
-},{"./app-core/index":3,"./app-images/index":7,"angular":12}],10:[function(require,module,exports){
+_angular2['default'].module('app', ['app.core', 'app.images', 'app.layout']);
+
+},{"./app-core/index":3,"./app-images/index":7,"./app-layout/index":10,"angular":14}],12:[function(require,module,exports){
 /**
  * State-based routing for AngularJS
  * @version v0.2.15
@@ -4511,7 +4639,7 @@ angular.module('ui.router.state')
   .filter('isState', $IsStateFilter)
   .filter('includedByState', $IncludedByStateFilter);
 })(window, window.angular);
-},{}],11:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 /**
  * @license AngularJS v1.4.7
  * (c) 2010-2015 Google, Inc. http://angularjs.org
@@ -33416,11 +33544,11 @@ $provide.value("$locale", {
 })(window, document);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],12:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":11}]},{},[9])
+},{"./angular":13}]},{},[11])
 
 
 //# sourceMappingURL=main.js.map

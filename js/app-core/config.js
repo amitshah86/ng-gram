@@ -22,7 +22,7 @@ let config = function($stateProvider, $urlRouterProvider) {
         // Add Athlete
     .state('root.addAthlete', {
       url: '/athletes/add',
-      controller: 'AddAthleteController as vm',
+      controller: 'ImagesAddController as vm',
       templateUrl: 'templates/app-images/images.add.tpl.html'
     });
 };
