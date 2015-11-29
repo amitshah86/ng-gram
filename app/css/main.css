@@ -6396,12 +6396,20 @@ h3 {
 form {
   width: 400px;
   display: inline-block;
-  margin-top: 50px; }
+  margin-top: 40px; }
+
+input {
+  margin: 100px; }
 
 button {
   display: inherit; }
 
-input .athlete {
-  height: 100px; }
+.picContainer {
+  display: inline-block;
+  width: 250px;
+  height: 200px;
+  border: 1px solid black;
+  border-radius: 5px;
+  text-align: center; }
 
 /*# sourceMappingURL=main.css.map */

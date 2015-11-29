@@ -1,6 +1,6 @@
-let ImageService = function($http, PARSE) {
+let ImagesService = function($http, PARSE) {
 
-  let url = PARSE.URL + 'classes/image';
+  let url = PARSE.URL + 'classes/images';
 
   this.getAllImages = getAllImages;
   this.addImage     = addImage;
@@ -22,6 +22,6 @@ let ImageService = function($http, PARSE) {
 
 };
 
-ImageService.$injet = ['$http', 'PARSE'];
+ImagesService.$inject = ['$http', 'PARSE'];
 
-export default ImageService;
+export default ImagesService;

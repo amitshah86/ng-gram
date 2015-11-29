@@ -12,7 +12,7 @@ let config = function($stateProvider, $urlRouterProvider) {
       abstract: true,
       templateUrl: 'templates/app-layout/layout.tpl.html'
     })
-    // Home State
+    // Home State≠
     .state('root.home', {
       url: '/',
       // Use Controller as Syntax

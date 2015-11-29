@@ -1,13 +1,23 @@
-let HomeController = function(PARSE) {
-
-  console.log(PARSE);
+let HomeController = function(ImagesService) {
 
   let vm = this;
-  
-  vm.title = 'Home Page';
 
+  vm.title = 'Sports Page';
+  
+  vm.activate = activate;
+
+  vm.images = [];
+  
+  activate();
+
+  function activate (obj) {
+    ImagesService.getAllImages(obj).then( (res) => {
+      vm.images = res.data.results;
+      console.log(vm.images);
+    });
+  }
 };
 
-HomeController.$inject = ['PARSE'];
+HomeController.$inject = ['ImagesService'];
 
 export default HomeController;
