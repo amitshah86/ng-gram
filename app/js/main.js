@@ -76,7 +76,56 @@ var _constantsParseConstant2 = _interopRequireDefault(_constantsParseConstant);
 
 _angular2['default'].module('app.core', ['ui.router']).config(_config2['default']).constant('PARSE', _constantsParseConstant2['default']);
 
-},{"./config":1,"./constants/parse.constant":2,"angular":7,"angular-ui-router":5}],4:[function(require,module,exports){
+},{"./config":1,"./constants/parse.constant":2,"angular":12,"angular-ui-router":10}],4:[function(require,module,exports){
+"use strict";
+
+},{}],5:[function(require,module,exports){
+"use strict";
+
+},{}],6:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var amitImage = function amitImage() {};
+
+exports["default"] = amitImage;
+module.exports = exports["default"];
+
+},{}],7:[function(require,module,exports){
+'use strict';
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _angular = require('angular');
+
+var _angular2 = _interopRequireDefault(_angular);
+
+require('../app-core/index');
+
+var _controllersImagesController = require('./controllers/images.controller');
+
+var _controllersImagesController2 = _interopRequireDefault(_controllersImagesController);
+
+var _controllersImagesAddController = require('./controllers/images-add.controller');
+
+var _controllersImagesAddController2 = _interopRequireDefault(_controllersImagesAddController);
+
+var _servicesImagesService = require('./services/images.service');
+
+var _servicesImagesService2 = _interopRequireDefault(_servicesImagesService);
+
+var _directivesImagesDirective = require('./directives/images.directive');
+
+var _directivesImagesDirective2 = _interopRequireDefault(_directivesImagesDirective);
+
+_angular2['default'].module('app.images', ['app.core']).controller('ImagesController', _controllersImagesController2['default']).controller('ImagesAddController', _controllersImagesAddController2['default']).service('ImagesService', _servicesImagesService2['default']).directive('amitImage', _directivesImagesDirective2['default']);
+
+},{"../app-core/index":3,"./controllers/images-add.controller":4,"./controllers/images.controller":5,"./directives/images.directive":6,"./services/images.service":8,"angular":12}],8:[function(require,module,exports){
+"use strict";
+
+},{}],9:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -87,9 +136,11 @@ var _angular2 = _interopRequireDefault(_angular);
 
 require('./app-core/index');
 
-_angular2['default'].module('app', ['app.core']);
+require('./app-images/index');
 
-},{"./app-core/index":3,"angular":7}],5:[function(require,module,exports){
+_angular2['default'].module('app', ['app.core', 'app.images']);
+
+},{"./app-core/index":3,"./app-images/index":7,"angular":12}],10:[function(require,module,exports){
 /**
  * State-based routing for AngularJS
  * @version v0.2.15
@@ -4460,7 +4511,7 @@ angular.module('ui.router.state')
   .filter('isState', $IsStateFilter)
   .filter('includedByState', $IncludedByStateFilter);
 })(window, window.angular);
-},{}],6:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 /**
  * @license AngularJS v1.4.7
  * (c) 2010-2015 Google, Inc. http://angularjs.org
@@ -33365,11 +33416,11 @@ $provide.value("$locale", {
 })(window, document);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],7:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":6}]},{},[4])
+},{"./angular":11}]},{},[9])
 
 
 //# sourceMappingURL=main.js.map
