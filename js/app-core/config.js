@@ -18,6 +18,12 @@ let config = function($stateProvider, $urlRouterProvider) {
       // Use Controller as Syntax
       controller: 'HomeController as vm',
       templateUrl: 'templates/app-layout/home.tpl.html'
+    })
+        // Add Athlete
+    .state('root.addAthlete', {
+      url: '/athletes/add',
+      controller: 'AddAthleteController as vm',
+      templateUrl: 'templates/app-images/images.add.tpl.html'
     });
 };
 
