@@ -9,8 +9,10 @@ let amitImage = function($state, ImagesService) {
     },
     template: `
       <div class="picContainer">
-        <img ng-src="{{ image.URL }}">
-        <p>{{ image.Athlete }} {{ image.Url }} {{ image.caption }}</p>
+        <section class="large-3 columns">
+          <img ng-src="{{ image.URL }}">
+          <p>{{ image.Athlete }} {{ image.Url }} {{ image.caption }}</p>
+        </section>  
       </div>
     `,
     link: function (scope, element, attrs) {

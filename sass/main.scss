@@ -1,6 +1,8 @@
 // Put any @imports here
 // See Readme for a list of supported ones
 @import "foundation";
+@import "bourbon";
+@import "neat";
 
 
 body {
@@ -22,10 +24,14 @@ button {
   display: inherit;
 }
 .picContainer {
-  display: inline-block;
-  width: 250px;
-  height: 200px;
-  border: 1px solid black;
-  border-radius: 5px;
-  text-align: center;
+    display: inline-block;
+    width: 250px;
+    height: 210px;
+    border: 1px solid black;
+    border-radius: 5px;
+    text-align: center;
+    margin: 85px;
+}
+img {
+  width: 100%;
 }

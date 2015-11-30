@@ -115,7 +115,7 @@ var amitImage = function amitImage($state, ImagesService) {
       image: '='
 
     },
-    template: '\n      <div class="picContainer">\n        <img ng-src="{{ image.URL }}">\n        <p>{{ image.Athlete }} {{ image.Url }} {{ image.caption }}</p>\n      </div>\n    ',
+    template: '\n      <div class="picContainer">\n        <section class="large-3 columns">\n          <img ng-src="{{ image.URL }}">\n          <p>{{ image.Athlete }} {{ image.Url }} {{ image.caption }}</p>\n        </section>  \n      </div>\n    ',
     link: function link(scope, element, attrs) {}
   };
 };

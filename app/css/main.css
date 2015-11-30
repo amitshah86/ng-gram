@@ -6387,6 +6387,12 @@ th.hide-for-touch {
   th.show-for-print {
     display: table-cell !important; } }
 
+html {
+  box-sizing: border-box; }
+
+*, *::after, *::before {
+  box-sizing: inherit; }
+
 body {
   background: #e2ebf3; }
 
@@ -6407,9 +6413,13 @@ button {
 .picContainer {
   display: inline-block;
   width: 250px;
-  height: 200px;
+  height: 210px;
   border: 1px solid black;
   border-radius: 5px;
-  text-align: center; }
+  text-align: center;
+  margin: 85px; }
+
+img {
+  width: 100%; }
 
 /*# sourceMappingURL=main.css.map */
