@@ -115,8 +115,13 @@ var amitImage = function amitImage($state, ImagesService) {
       image: '='
 
     },
-    template: '\n      <div class="picContainer">\n        <section class="large-3 columns">\n          <img ng-src="{{ image.URL }}">\n          <p>{{ image.Athlete }} {{ image.Url }} {{ image.caption }}</p>\n        </section>  \n      </div>\n    ',
-    link: function link(scope, element, attrs) {}
+    template: '\n      <div class="picContainer">\n        <section class="large-3 columns">\n          <img ng-src="{{ image.URL }}">\n          <p>{{ image.Athlete }} {{ image.Url }} {{ image.caption }}</p>\n          <button>Like <span>{{ image.likes }}</button>\n        </section>  \n      </div>\n    ',
+    link: function link(scope, element, attrs) {
+      element.on('click', function () {
+        element.addClass('heart');
+        ImagesService.like(scope.image);
+      });
+    }
   };
 };
 
@@ -162,6 +167,7 @@ var ImagesService = function ImagesService($http, PARSE) {
 
   this.getAllImages = getAllImages;
   this.addImage = addImage;
+  this.like = like;
 
   function Image(imageObj) {
     this.athlete = imageObj.athlete;
@@ -176,6 +182,13 @@ var ImagesService = function ImagesService($http, PARSE) {
   function addImage(imageUrl, image) {
     image.image = imageUrl;
     return $http.put(url + '/' + image.objectId, image, PARSE.CONFIG);
+  }
+  function like(obj) {
+    updateLikes();
+  }
+  function updatesLikes(obj) {
+    obj.likes = obj.likes + 1;
+    return $http.put(url + '/' + obj.objectId, obj, PARSE.CONFIG);
   }
 };
 

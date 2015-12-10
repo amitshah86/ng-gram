@@ -4,6 +4,7 @@ let ImagesService = function($http, PARSE) {
 
   this.getAllImages = getAllImages;
   this.addImage     = addImage;
+  this.like         = like;
 
   function Image (imageObj) {
     this.athlete = imageObj.athlete;
@@ -18,6 +19,15 @@ let ImagesService = function($http, PARSE) {
   function addImage (imageUrl, image) {
     image.image = imageUrl;
     return $http.put(url + '/' + image.objectId, image, PARSE.CONFIG);
+  }
+  function like(obj) {
+    updateLikes();
+
+  }
+  function updatesLikes (obj) {
+    obj.likes = obj.likes + 1;
+    return $http.put(url + '/' + obj.objectId, obj, PARSE.CONFIG);
+
   }
 
 };

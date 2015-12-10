@@ -6387,39 +6387,27 @@ th.hide-for-touch {
   th.show-for-print {
     display: table-cell !important; } }
 
-html {
-  box-sizing: border-box; }
-
-*, *::after, *::before {
-  box-sizing: inherit; }
-
 body {
-  background: #e2ebf3; }
-
-h3 {
-  margin-top: 20px; }
-
-form {
-  width: 400px;
-  display: inline-block;
-  margin-top: 40px; }
-
-input {
-  margin: 100px; }
-
-button {
-  display: inherit; }
+  background: gray; }
 
 .picContainer {
   display: inline-block;
+  background-color: black;
   width: 250px;
-  height: 210px;
-  border: 1px solid black;
-  border-radius: 5px;
+  height: 200px;
+  border: 3px solid black;
+  border-radius: 10px;
   text-align: center;
-  margin: 85px; }
+  margin: 85px;
+  cursor: pointer; }
+  .picContainer p {
+    color: white;
+    font-size: 16px;
+    width: 100%; }
 
-img {
-  width: 100%; }
+.heart {
+  background-image: url("http://images.clipartpanda.com/hardball-clipart-gg61325700.jpg");
+  background-repeat: no repeat;
+  background-position: center; }
 
 /*# sourceMappingURL=main.css.map */
