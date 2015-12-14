@@ -13,7 +13,6 @@ let HomeController = function(ImagesService) {
   function activate (obj) {
     ImagesService.getAllImages(obj).then( (res) => {
       vm.images = res.data.results;
-      console.log(vm.images);
     });
   }
 };

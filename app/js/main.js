@@ -115,11 +115,11 @@ var amitImage = function amitImage($state, ImagesService) {
       image: '='
 
     },
-    template: '\n      <div class="picContainer">\n        <section class="large-3 columns">\n          <img ng-src="{{ image.URL }}">\n          <p>{{ image.Athlete }} {{ image.Url }} {{ image.caption }}</p>\n          <button>Like <span>{{ image.likes }}</button>\n        </section>  \n      </div>\n    ',
+    template: '\n      <div class="picContainer">\n        <section class="large-3 columns">\n          <img ng-src="{{ image.URL }}">\n          <p>{{ image.Athlete }} {{ image.Url }} {{ image.caption }}</p>\n          <button ng-click="count">Like <span>{{ image.likes }}</button>\n        </section>  \n      </div>\n    ',
     link: function link(scope, element, attrs) {
       element.on('click', function () {
         element.addClass('heart');
-        ImagesService.like(scope.image);
+        ImagesService.likes(scope.image);
       });
     }
   };
@@ -161,38 +161,43 @@ _angular2['default'].module('app.images', ['app.core']).controller('ImagesAddCon
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var ImagesService = function ImagesService($http, PARSE) {
+var ImagesService = function ImagesService($http, PARSE, $stateParams) {
 
   var url = PARSE.URL + 'classes/images';
 
+  this.image = image;
   this.getAllImages = getAllImages;
   this.addImage = addImage;
-  this.like = like;
-
-  function Image(imageObj) {
-    this.athlete = imageObj.athlete;
-    this.url = imageObj.url;
-    this.caption = imageObj.caption;
-  }
+  this.likes = likes;
+  this.updateLikes = updateLikes;
 
   function getAllImages() {
     return $http.get(url, PARSE.CONFIG);
   }
-
-  function addImage(imageUrl, image) {
-    image.image = imageUrl;
-    return $http.put(url + '/' + image.objectId, image, PARSE.CONFIG);
+  function image(imageObj) {
+    this.athlete = imageObj.athlete;
+    this.url = imageObj.url;
+    this.caption = imageObj.caption;
+    this.objectId = imageObj.objectId;
+    this.likes = [];
   }
-  function like(obj) {
+
+  function addImage(imageObj) {
+    var img = new Image(imageObj);
+    image.image = imageUrl;
+    return $http.post(url + '/' + image.objectId, image, PARSE.CONFIG);
+  }
+  function likes(obj) {
     updateLikes();
   }
-  function updatesLikes(obj) {
+  function updateLikes(obj) {
     obj.likes = obj.likes + 1;
-    return $http.put(url + '/' + obj.objectId, obj, PARSE.CONFIG);
+    console.log(obj.likes);
+    return $http.post(url + '/' + obj.objectId, obj, PARSE.CONFIG);
   }
 };
 
-ImagesService.$inject = ['$http', 'PARSE'];
+ImagesService.$inject = ['$http', 'PARSE', '$stateParams'];
 
 exports['default'] = ImagesService;
 module.exports = exports['default'];
@@ -218,7 +223,6 @@ var HomeController = function HomeController(ImagesService) {
   function activate(obj) {
     ImagesService.getAllImages(obj).then(function (res) {
       vm.images = res.data.results;
-      console.log(vm.images);
     });
   }
 };

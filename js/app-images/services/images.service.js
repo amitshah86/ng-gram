@@ -1,37 +1,44 @@
-let ImagesService = function($http, PARSE) {
+let ImagesService = function($http, PARSE, $stateParams) {
 
   let url = PARSE.URL + 'classes/images';
 
+  this.image        = image;
   this.getAllImages = getAllImages;
   this.addImage     = addImage;
-  this.like         = like;
-
-  function Image (imageObj) {
-    this.athlete = imageObj.athlete;
-    this.url = imageObj.url;
-    this.caption = imageObj.caption;
-  }
+  this.likes        = likes;
+  this.updateLikes  = updateLikes;
 
   function getAllImages () {
     return $http.get(url, PARSE.CONFIG);
   }
+  function image (imageObj) {
+    this.athlete = imageObj.athlete;
+    this.url = imageObj.url;
+    this.caption = imageObj.caption;
+    this.objectId = imageObj.objectId;
+    this.likes = [];
 
-  function addImage (imageUrl, image) {
-    image.image = imageUrl;
-    return $http.put(url + '/' + image.objectId, image, PARSE.CONFIG);
   }
-  function like(obj) {
+
+  function addImage (imageObj) {
+    let img = new Image(imageObj);
+    image.image = imageUrl;
+    return $http.post(url + '/' + image.objectId, image, PARSE.CONFIG);
+  }
+  function likes(obj) {
     updateLikes();
 
   }
-  function updatesLikes (obj) {
+  function updateLikes (obj) {
     obj.likes = obj.likes + 1;
-    return $http.put(url + '/' + obj.objectId, obj, PARSE.CONFIG);
+    console.log(obj.likes);
+    return $http.post(url + '/' + obj.objectId, obj, PARSE.CONFIG);
+  } 
 
-  }
+
 
 };
 
-ImagesService.$inject = ['$http', 'PARSE'];
+ImagesService.$inject = ['$http', 'PARSE', '$stateParams'];
 
 export default ImagesService;
